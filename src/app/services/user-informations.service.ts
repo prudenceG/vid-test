@@ -39,7 +39,7 @@ export class UserInformationsService {
     return newUsers;
   }
 
-  saveUser(newUser: User, users: User[]): User[] {
+  saveUser(newUser: User, users: User[]): [User[], string] {
     const phoneExists = users.find(user => user.phone && user.phone === newUser.phone);
     const namesakeExists = users.filter(user => user.firstname === newUser.firstname && user.lastname === newUser.lastname);
 
@@ -48,8 +48,10 @@ export class UserInformationsService {
 
       localStorage.setItem('users', JSON.stringify(newUsers));
 
-      return newUsers;
+      return [newUsers, ''];
     }
+
+    return [undefined, 'The phone number or the firstname and lastname combinaison already exists'];
   }
 
   getUsers(): User[] {

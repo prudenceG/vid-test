@@ -1,3 +1,4 @@
 <app-form (newUserEvent)="addUser($event)" [keys]="keys"></app-form>
+<p>{{ errorMessage }}</p>
 <app-search-value [users]="users" [keys]="keys" (filteredListEvent)="updateUsers($event)" (searchFormValuesEvent)="setSearhFormValues($event)"></app-search-value>
 <app-user-table [users]="users" [filteredUsers]="filteredUsers" [keys]="keys" (filteredListEvent)="updateUsers($event)" (removeUserEvent)="deleteUsers($event)"></app-user-table>

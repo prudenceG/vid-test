@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     filterType: 'lastname',
     searchValue: '',
   };
+  errorMessage: string;
 
   constructor(
     private userInformationService: UserInformationsService,
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
 
   addUser(user: User): void {
     const newUser = this.userInformationService.addIdToUser(user);
-    const result = this.userInformationService.saveUser(newUser, this.users);
+    const [result, message] = this.userInformationService.saveUser(newUser, this.users);
     const newUsers = result ? result : this.users;
 
     this.users = newUsers;
@@ -51,6 +52,8 @@ export class AppComponent implements OnInit {
 
       return;
     }
+
+    this.errorMessage = message;
   }
 
   deleteUsers(newUsersList: User[]): void {
