@@ -34,5 +34,6 @@ export class FormComponent implements OnInit {
 
   onSubmit(): void {
     this.newUserEvent.emit(this.userInformationsForm.value);
+    this.userInformationsForm.reset();
   }
 }
