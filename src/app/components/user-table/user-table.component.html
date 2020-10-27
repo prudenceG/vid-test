@@ -1,3 +1,4 @@
+<h2>Utilisateurs :</h2>
 <table>
   <tr>
     <th *ngFor="let key of keys">{{key.label}}</th>
@@ -5,6 +6,8 @@
   </tr>
   <tr *ngFor="let user of filteredUsers">
     <td *ngFor="let key of keys">{{user[key.name]}}</td>
-    <td><button (click)="removeUser(user)">Supprimer</button></td>
+    <td>
+      <button (click)="removeUser(user)">Supprimer</button>
+    </td>
   </tr>
 </table>

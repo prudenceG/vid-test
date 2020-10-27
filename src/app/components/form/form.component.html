@@ -1,12 +1,13 @@
+<h2>Ajouter un utilisateur</h2>
 <form [formGroup]="userInformationsForm" (ngSubmit)="onSubmit()">
-  <div *ngFor="let key of keys">
-    <label *ngIf="key.type !== 'select'">
-      {{ key.label }}
+  <div class="field-container" *ngFor="let key of keys">
+    <label class="user-form-label" *ngIf="key.type !== 'select'">
+      <p>{{ key.label }}</p>
       <input type="text" formControlName="{{key.name}}">
     </label>
 
-    <label *ngIf="key.type === 'select'">
-      {{ key.label }}
+    <label class="user-form-label" *ngIf="key.type === 'select'">
+      <p>{{ key.label }}</p>
       <select formControlName="{{key.name}}">
         <option value="">-- Choisissez une région --</option>
         <option value="{{district.nom}}" *ngFor="let district of districts">{{ district.nom }}</option>
