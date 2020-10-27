@@ -1,0 +1,17 @@
+<form [formGroup]="userInformationsForm" (ngSubmit)="onSubmit()">
+  <div *ngFor="let key of keys">
+    <label *ngIf="key.type !== 'select'">
+      {{ key.label }}
+      <input type="text" formControlName="{{key.name}}">
+    </label>
+
+    <label *ngIf="key.type === 'select'">
+      {{ key.label }}
+      <select formControlName="{{key.name}}">
+        <option value="">-- Choisissez une région --</option>
+        <option value="{{district.nom}}" *ngFor="let district of districts">{{ district.nom }}</option>
+      </select>
+    </label>
+  </div>
+  <button type="submit" [disabled]="!userInformationsForm.valid">Submit</button>
+</form>
