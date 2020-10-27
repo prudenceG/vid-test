@@ -1,4 +1,5 @@
 # VidTest
+Technical test for a startup including a form and displaying form data inside a table. Data is saved in local storage, it could be filtered thanks to autocomplete html api and deleted.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
