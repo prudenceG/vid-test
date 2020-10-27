@@ -38,12 +38,12 @@ export class AppComponent implements OnInit {
 
   addUser(user: User): void {
     const newUser = this.userInformationService.addIdToUser(user);
-    const [result, message] = this.userInformationService.saveUser(newUser, this.users);
-    const newUsers = result ? result : this.users;
+    const [updatedUsers, message] = this.userInformationService.saveUser(newUser, this.users);
+    const newUsers = updatedUsers ? updatedUsers : this.users;
 
     this.users = newUsers;
 
-    if (result) {
+    if (updatedUsers) {
       const { filterType, searchValue } = this.searchFormValues;
       let newFilteredUsers = this.userInformationService.addUser(newUser, this.filteredUsers);
       newFilteredUsers = this.userInformationService.filterByValue(filterType, searchValue, this.users);
