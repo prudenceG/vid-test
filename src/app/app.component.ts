@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
       newFilteredUsers = this.userInformationService.filterByValue(filterType, searchValue, this.users);
 
       this.filteredUsers = newFilteredUsers;
+      this.errorMessage = '';
 
       return;
     }
