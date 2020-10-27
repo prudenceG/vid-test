@@ -1,0 +1,7 @@
+<form [formGroup]="searchForm">
+  <span *ngFor="let key of keys">
+    <input type="radio" formControlName="filterType" value="{{key.name}}">
+    <label for="firstname">{{key.label}}</label>
+  </span>
+  <input type="text" formControlName="searchValue">
+</form>
