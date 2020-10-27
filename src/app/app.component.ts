@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserInformationsService } from './services/user-informations.service';
 import { User } from 'src/interfaces/user.interface';
 import { Key } from 'src/interfaces/key.interface';
+import { SearchValue } from 'src/interfaces/searchValue.interface';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,10 @@ export class AppComponent implements OnInit {
   users: User[] = [];
   filteredUsers: User[];
   keys: Key[];
+  searchFormValues: SearchValue = {
+    filterType: 'lastname',
+    searchValue: '',
+  };
 
   constructor(
     private userInformationService: UserInformationsService,
@@ -31,14 +36,21 @@ export class AppComponent implements OnInit {
   }
 
   addUser(user: User): void {
-    const result = this.userInformationService.saveUser(user, this.users);
+    const newUser = this.userInformationService.addIdToUser(user);
+    const result = this.userInformationService.saveUser(newUser, this.users);
     const newUsers = result ? result : this.users;
 
     this.users = newUsers;
-    this.filteredUsers = result
-      ? this.userInformationService.addUser(user, this.filteredUsers)
-      : this.filteredUsers
-    ;
+
+    if (result) {
+      const { filterType, searchValue } = this.searchFormValues;
+      let newFilteredUsers = this.userInformationService.addUser(newUser, this.filteredUsers);
+      newFilteredUsers = this.userInformationService.filterByValue(filterType, searchValue, this.users);
+
+      this.filteredUsers = newFilteredUsers;
+
+      return;
+    }
   }
 
   deleteUsers(newUsersList: User[]): void {
@@ -47,5 +59,9 @@ export class AppComponent implements OnInit {
 
   updateUsers(newUsersList: User[]): void {
     this.filteredUsers = newUsersList;
+  }
+
+  setSearhFormValues(values: SearchValue): void {
+    this.searchFormValues = values;
   }
 }

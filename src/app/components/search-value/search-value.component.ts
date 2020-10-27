@@ -14,6 +14,7 @@ export class SearchValueComponent implements OnInit {
   @Input() filteredUsers: User[];
   @Input() keys: Key[];
   @Output() filteredListEvent = new EventEmitter();
+  @Output() searchFormValuesEvent = new EventEmitter();
 
   searchForm = new FormGroup({
     filterType: new FormControl('lastname', [Validators.required]),
@@ -27,6 +28,8 @@ export class SearchValueComponent implements OnInit {
   ngOnInit(): void {
     this.searchForm.valueChanges.subscribe(async _ => {
       const { filterType, searchValue } = this.searchForm.value;
+
+      this.searchFormValuesEvent.emit(this.searchForm.value);
 
       if (searchValue) {
         const filteredList = await this.userInformations.filterByValue(filterType, searchValue, this.users);

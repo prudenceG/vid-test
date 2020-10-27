@@ -23,24 +23,28 @@ export class UserInformationsService {
     return keys;
   }
 
-  addUser(userToSave: User, users: User[]): User[] {
+  addIdToUser(user): User {
     const newUser = {
-      ...userToSave,
+      ...user,
       id: uuidv4(),
     };
 
+    return newUser;
+  }
+
+  addUser(newUser: User, users: User[]): User[] {
     let newUsers = [...users, newUser];
     newUsers = this.sortByProperty('lastname', newUsers);
 
     return newUsers;
   }
 
-  saveUser(userToSave: User, users: User[]): User[] {
-    const phoneExists = users.find(user => user.phone && user.phone === userToSave.phone);
-    const namesakeExists = users.filter(user => user.firstname === userToSave.firstname && user.lastname === userToSave.lastname);
+  saveUser(newUser: User, users: User[]): User[] {
+    const phoneExists = users.find(user => user.phone && user.phone === newUser.phone);
+    const namesakeExists = users.filter(user => user.firstname === newUser.firstname && user.lastname === newUser.lastname);
 
     if (!phoneExists && namesakeExists.length === 0) {
-      const newUsers = this.addUser(userToSave, users);
+      const newUsers = this.addUser(newUser, users);
 
       localStorage.setItem('users', JSON.stringify(newUsers));
 

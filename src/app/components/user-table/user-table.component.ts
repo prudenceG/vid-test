@@ -17,6 +17,8 @@ export class UserTableComponent {
 
   @Output() removeUserEvent = new EventEmitter();
 
+  @Output() filteredListEvent = new EventEmitter();
+
   constructor(
     private userInformationService: UserInformationsService,
   ) {}
@@ -27,5 +29,6 @@ export class UserTableComponent {
     localStorage.setItem('users', JSON.stringify(newUsers));
     this.removeUserEvent.emit(newUsers);
     this.filteredUsers = this.userInformationService.filterUserListById(user, this.filteredUsers);
+    this.filteredListEvent.emit(this.filteredUsers);
   }
 }
